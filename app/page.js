@@ -5,6 +5,7 @@ import Hero from "./components/hero";
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingBag, ChevronDown } from 'lucide-react';
+import Footer from "./components/Footer";
 
 export default function Home() {
   const [isHovered, setIsHovered] = useState(false);
@@ -38,7 +39,7 @@ export default function Home() {
 
 
   return (
-    <div className="relative h-[100vh]">
+    <div className="relative min-h-screen">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
@@ -54,7 +55,7 @@ export default function Home() {
 
 
       {/* Overlay Content */}
-      <div className="relative z-10 h-[100vh] flex items-center justify-center bg-gradient-to-b from-black/50 to-black/30 backdrop-blur-sm">
+      <div className="relative z-10 min-h-screen flex items-center justify-center bg-gradient-to-b from-black/50 to-black/30 backdrop-blur-sm">
         {/* Particle effect background */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-0 bg-[url('/api/placeholder/20/20')] opacity-10 animate-pulse" />

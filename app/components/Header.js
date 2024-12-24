@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, easeIn } from 'framer-motion';
 import { Search, ShoppingCart, User, Heart, Menu, X, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
@@ -11,6 +11,29 @@ const Header = () => {
     const [cartCount, setCartCount] = useState(0);
     const [wishlistCount, setWishlistCount] = useState(0);
     const [hoveredCategory, setHoveredCategory] = useState(null);
+
+    const mobileMenuRef = useRef(null);
+    const menuButtonRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (
+                mobileMenuRef.current &&
+                !mobileMenuRef.current.contains(event.target) &&
+                menuButtonRef.current &&
+                !menuButtonRef.current.contains(event.target)
+            ) {
+                setIsMobileMenuOpen(false);
+            }
+        };
+
+        window.addEventListener('click', handleClickOutside);
+
+        return () => {
+            window.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
+
 
     const navItems = [
         {
@@ -83,33 +106,40 @@ const Header = () => {
     return (
         <>
             <motion.header
-                className="fixed top-0 w-full z-50"
+                className="fixed top-0 w-full z-50 bg-gradient-to-b from-black/50 to-black/30"
             >
                 {/* Announcement Bar with Gradient Animation */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
+                <div
                     className="gradient-animation bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-[length:200%_100%] text-white text-sm py-2 text-center hidden md:block"
                 >
-                    <p>
+                    <motion.p
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                    >
                         🎉 Free Shipping on Orders Over ₹499 | Fast Delivery 🚚
-                    </p>
-                </motion.div>
-                
+                    </motion.p>
+                </div>
+
+
                 <div className="bg-gradient-to-b from-[#1E1E2F] to-[#000000] backdrop-blur-lg bg-opacity-95">
                     <div className="px-4 lg:px-8 py-4 max-w-7xl mx-auto">
                         <div className="flex items-center justify-between">
                             {/* Mobile menu button with glow effect */}
                             <motion.button
+                                ref={menuButtonRef}
                                 whileTap={{ scale: 0.95 }}
                                 className="lg:hidden text-white hover:text-purple-400 transition-colors"
-                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                onClick={(e) => {
+                                    e.stopPropagation();  // Prevents event from propagating to window
+                                    setIsMobileMenuOpen(!isMobileMenuOpen);
+                                }}
                             >
-                                {isMobileMenuOpen ?
-                                    <X size={24} className="hover:rotate-90 transition-transform duration-300" /> :
+                                {isMobileMenuOpen ? (
+                                    <X size={24} className="hover:rotate-90 transition-transform duration-300" />
+                                ) : (
                                     <Menu size={24} />
-                                }
+                                )}
                             </motion.button>
 
                             {/* Logo with gradient text */}
@@ -262,6 +292,7 @@ const Header = () => {
                 <AnimatePresence>
                     {isMobileMenuOpen && (
                         <motion.div
+                            ref={mobileMenuRef}
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
@@ -302,9 +333,9 @@ const Header = () => {
                         </motion.div>
                     )}
                 </AnimatePresence>
-            </motion.header>
+            </motion.header >
             {/* Spacer for fixed header */}
-            <div className="h-[64px] md:h-[80px]"></div>
+            < div className="h-[64px] md:h-[80px]" ></div >
         </>
     );
 };

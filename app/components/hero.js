@@ -33,7 +33,7 @@ const Hero = () => {
 
     return (
         <>
-            <div className="flex justify-center min-h-[30vh] items-center bg-gradient-to-b from-[#1E1E2F] to-[#000000] backdrop-blur-lg bg-opacity-95 px-4 py-8">
+            <div className="flex justify-center h-auto items-center bg-gradient-to-b from-[#1E1E2F] to-[#000000] backdrop-blur-lg bg-opacity-95 px-4 py-16">
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -44,7 +44,7 @@ const Hero = () => {
                 </motion.h1>
             </div>
 
-            <div className="relative min-h-screen lg:h-screen">
+            <div className="relative lg:h-screen">
                 <div className="absolute inset-0">
                     <Image
                         src="/images/img2.webp"
@@ -150,3 +150,4 @@ const Hero = () => {
 };
 
 export default Hero;
+
