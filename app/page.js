@@ -43,7 +43,7 @@ export default function Home() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/img1.png"
+          src="/img1.png"
           alt="Background"
           fill
           style={{ objectFit: "cover" }}

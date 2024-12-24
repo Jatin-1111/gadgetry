@@ -127,7 +127,7 @@ const Hero = () => {
                                     >
                                         <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 overflow-hidden rounded-lg">
                                             <Image
-                                                src={`/images/${product.fileName}.${product.extension}`}
+                                                src={`/${product.fileName}.${product.extension}`}
                                                 alt={product.fileName}
                                                 width={400}
                                                 height={300}
